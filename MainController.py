@@ -28,7 +28,7 @@ while Globals.running:
     curr_level = Globals.next_level
     Globals.next_level += 1
     Globals.next_level %= len(levels)
-    mod_name = f"Rooms.{levels[curr_level]}"
+    mod_name = f"Rooms.{levels[curr_level]}"   
     mod = __import__(mod_name)
     class_name = getattr(mod, levels[curr_level])
     room = class_name(screen, joysticks)
