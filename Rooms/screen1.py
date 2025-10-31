@@ -1,6 +1,5 @@
 from GameFrame import Level
-from Objects.start import Start
-class WelcomeScreen(Level):
+class screen1(Level):
     """
     Intial screen for the game
     """

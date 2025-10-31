@@ -1,0 +1,29 @@
+{
+  "name": "space-rescue-resources",
+  "version": "1.0.0",
+  "description": "A space-themed rescue game with multiple rooms and scenes.",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "typescript": "^4.5.4",
+    "ts-node": "^10.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/space-rescue-resources.git"
+  },
+  "keywords": [
+    "game",
+    "typescript",
+    "space",
+    "rescue"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
