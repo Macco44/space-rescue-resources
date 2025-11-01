@@ -1,5 +1,6 @@
 from GameFrame import Level
-from Objects.start import Start
+from Objects.Start import Start
+
 class WelcomeScreen(Level):
     """
     Intial screen for the game
@@ -11,3 +12,4 @@ class WelcomeScreen(Level):
         self.set_background_image("Background.png")
 
         self.add_room_object(Start(self, 750, 400))
+        

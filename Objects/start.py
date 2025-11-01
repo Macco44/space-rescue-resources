@@ -15,4 +15,4 @@ class Start(RoomObject):
     def clicked(self, button_number): 
     # - Check for a left mouse button click - # 
         if button_number == 1: 
-            print("this took too long")
+            self.room.running = False
