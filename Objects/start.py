@@ -8,7 +8,7 @@ class Start(RoomObject):
         
         # set image
         image = self.load_image("start.png")
-        self.set_image(image,100,100)
+        self.set_image(image,200,200)
 
         self.handle_mouse_events = True
     

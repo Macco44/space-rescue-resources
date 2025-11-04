@@ -110,10 +110,7 @@ class Player2(RoomObject):
 
         self.keep_in_room()
 
-        # detect reaching the far right edge
-        if self.x <= 0:
-            Globals.next_level = Globals.levels.index("Screen1")
-            self.room.running = False
+    
     # helper to reset animation state
     def _reset_anim(self, name):
         st = self.anim.get(name)

@@ -36,4 +36,7 @@ class Globals:
 # ###### User Defined Global Variables below this line ######## #
 # ############################################################# #
 
-    fish = 4
+    fish = 30000000000000000000000
+    thistooksolongholycow = False
+    poo = True
+    sound = False

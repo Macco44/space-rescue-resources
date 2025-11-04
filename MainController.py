@@ -10,6 +10,8 @@ pygame.init()
 pygame.font.init()
 pygame.joystick.init()
 
+
+
 joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
 for joystick in joysticks:
     joystick.init()
@@ -24,6 +26,7 @@ levels = Globals.levels
 
 # - Main Game Loop. Steps through the levels defined in levels[] - #
 while Globals.running:
+
 
     curr_level = Globals.next_level
     Globals.next_level += 1

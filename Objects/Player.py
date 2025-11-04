@@ -1,5 +1,8 @@
 from GameFrame import RoomObject, Globals
+from Objects.Error import Error
 import pygame
+import time
+
 
 class Player(RoomObject):
     """
@@ -115,7 +118,15 @@ class Player(RoomObject):
         if right_edge >= Globals.SCREEN_WIDTH and Globals.fish >=4: 
             self.room.running = False
         elif right_edge >= Globals.SCREEN_WIDTH and Globals.fish <4:
-            print("You need to collect at least 4 fish to proceed!")
+            self.spawn_error()
+    
+    def spawn_error(self):
+        error = Error(self.room, 100, 100)
+        #print(f"{error}, {self.room})")
+        self.room.add_room_object(error)
+            
+
+
 
     # helper to reset animation state
     def _reset_anim(self, name):
@@ -133,7 +144,7 @@ class Player(RoomObject):
             self.x = Globals.SCREEN_WIDTH - getattr(self, 'width', 0)
 
         # clamp Y axis
-        if self.y < 0:
-            self.y = 0
+        if self.y < 350:
+            self.y = 350
         elif self.y + getattr(self, 'height', 0) > Globals.SCREEN_HEIGHT:
             self.y = Globals.SCREEN_HEIGHT - getattr(self, 'height', 0)
