@@ -22,11 +22,16 @@ class Player2(RoomObject):
             'right1': self.load_image("Right1.png"),
             'right2': self.load_image("Right2.png"),
             'right_stand': self.load_image("Right_stand.png"),
+            'sup': self.load_image("ship_up.png"),
+            'sdown': self.load_image("ship_down.png"),
+            'sleft': self.load_image("ship_left.png"),
+            'sright': self.load_image("ship_right.png"),
         }
 
         # initial sprite
         self.set_image(self._images['player'], 100, 100)
         self.handle_key_events = True
+        self.fly = False
 
         # animation state
         self.anim = {
@@ -43,8 +48,7 @@ class Player2(RoomObject):
         Respond to keypresses and handle per-direction animations.
         `key` is expected to be the sequence returned by pygame.key.get_pressed()
         """
-        # Movement + animation (priority: W, S, A, D)
-        if key[pygame.K_w]:
+        if key[pygame.K_w] and not self.fly:
             self.y -= 10
             st = self.anim['up']
             st['timer'] += 1
@@ -54,8 +58,7 @@ class Player2(RoomObject):
             frame_key = st['frames'][st['idx']]
             self.set_image(self._images[frame_key], 100, 100)
             self.was['up'] = True
-
-        elif key[pygame.K_s]:
+        elif key[pygame.K_s] and not self.fly:
             self.y += 10
             st = self.anim['down']
             st['timer'] += 1
@@ -65,8 +68,7 @@ class Player2(RoomObject):
             frame_key = st['frames'][st['idx']]
             self.set_image(self._images[frame_key], 100, 100)
             self.was['down'] = True
-
-        elif key[pygame.K_a]:
+        elif key[pygame.K_a] and not self.fly:
             self.x -= 20
             st = self.anim['left']
             st['timer'] += 1
@@ -76,8 +78,7 @@ class Player2(RoomObject):
             frame_key = st['frames'][st['idx']]
             self.set_image(self._images[frame_key], 100, 100)
             self.was['left'] = True
-
-        elif key[pygame.K_d]:
+        elif key[pygame.K_d] and not self.fly:
             self.x += 20
             st = self.anim['right']
             st['timer'] += 1
@@ -87,21 +88,38 @@ class Player2(RoomObject):
             frame_key = st['frames'][st['idx']]
             self.set_image(self._images[frame_key], 100, 100)
             self.was['right'] = True
+        elif key[pygame.K_ESCAPE]:
+            Globals.next_level = Globals.levels.index("Credits")
+            self.room.running = False
 
         else:
-            # handle releases: set final standing frames and reset anim state
-            if self.was['up'] and not key[pygame.K_w]:
-                self.set_image(self._images['up_stand'], 100, 100)
-                self._reset_anim('up')
-            if self.was['down'] and not key[pygame.K_s]:
-                self.set_image(self._images['player'], 100, 100)
-                self._reset_anim('down')
-            if self.was['left'] and not key[pygame.K_a]:
-                self.set_image(self._images['left_stand'], 100, 100)
-                self._reset_anim('left')
-            if self.was['right'] and not key[pygame.K_d]:
-                self.set_image(self._images['right_stand'], 100, 100)
-                self._reset_anim('right')
+            if not self.fly: # handle releases: set final standing frames and reset anim state
+                if self.was['up'] and not key[pygame.K_w]:
+                    self.set_image(self._images['up_stand'], 100, 100)
+                    self._reset_anim('up')
+                elif self.was['down'] and not key[pygame.K_s]:
+                    self.set_image(self._images['player'], 100, 100)
+                    self._reset_anim('down')
+                elif self.was['left'] and not key[pygame.K_a]:
+                    self.set_image(self._images['left_stand'], 100, 100)
+                    self._reset_anim('left')
+                elif self.was['right'] and not key[pygame.K_d]:
+                    self.set_image(self._images['right_stand'], 100, 100)
+        if self.fly:
+            # flying controls
+            if key[pygame.K_w]:
+                self.y -= 15
+                self.set_image(self._images['sup'], 100, 100)
+            elif key[pygame.K_s]:
+                self.y += 15
+                self.set_image(self._images['sdown'], 100, 100)
+            elif key[pygame.K_a]:
+                self.x -= 15
+                self.set_image(self._images['sleft'], 100, 100)
+            elif key[pygame.K_d]:
+                self.x += 15
+                self.set_image(self._images['sright'], 100, 100)
+
 
         # ensure player remains inside room after movement
         self.keep_in_room()
@@ -131,3 +149,10 @@ class Player2(RoomObject):
             self.y = 0
         elif self.y + getattr(self, 'height', 0) > Globals.SCREEN_HEIGHT:
             self.y = Globals.SCREEN_HEIGHT - getattr(self, 'height', 0)
+        if self.y < 350:
+            self.fly = True
+        else:
+            self.fly = False
+        
+
+        self.fly = (self.y < 350)

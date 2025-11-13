@@ -16,7 +16,7 @@ class Globals:
     window_name = 'Hook, Line & Stinker'
 
     # - Set the order of the rooms - #
-    levels = ["WelcomeScreen", "Screen1", "Screen2"]
+    levels = ["WelcomeScreen", "Screen1", "Screen2", "Email1", "Email2", "Email3", "Credits"]
 
     # - Set the starting level - #
     start_level = 0
@@ -36,7 +36,8 @@ class Globals:
 # ###### User Defined Global Variables below this line ######## #
 # ############################################################# #
 
-    fish = 30000000000000000000000
+    fish = 0
     thistooksolongholycow = False
     poo = True
     sound = False
+    email = 0

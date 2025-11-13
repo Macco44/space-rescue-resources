@@ -3,3 +3,14 @@ from Objects.Player import Player
 from Objects.Player2 import Player2
 from Objects.Error import Error
 from Objects.Music import Music
+from Objects.Lives import Lives
+from Objects.Email import Email
+from Objects.Email1F import Email1F
+from Objects.Email1T import Email1T
+from Objects.Email2F import Email2F
+from Objects.Email2T import Email2T
+from Objects.Email3F import Email3F
+from Objects.Email3T import Email3T
+from Objects.text import text
+from Objects.fish import fish
+from Objects.cwedits import cwedits

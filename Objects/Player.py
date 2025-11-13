@@ -40,6 +40,7 @@ class Player(RoomObject):
         }
         self.anim_delay = 6  # frames between toggles
         self.was = {'up': False, 'down': False, 'left': False, 'right': False}
+        self.error_spawned = False
 
     def key_pressed(self, key):
         """
@@ -107,22 +108,22 @@ class Player(RoomObject):
                 self._reset_anim('right')
 
         # ensure player remains inside room after movement
-        self.keep_in_room()
+
 
     def step(self):
-
         self.keep_in_room()
 
         # detect reaching the far right edge
         right_edge = self.x + getattr(self, 'width', 0)
         if right_edge >= Globals.SCREEN_WIDTH and Globals.fish >=4: 
             self.room.running = False
-        elif right_edge >= Globals.SCREEN_WIDTH and Globals.fish <4:
+        elif right_edge >= Globals.SCREEN_WIDTH and Globals.fish <4 and not self.error_spawned:
             self.spawn_error()
+            self.error_spawned = True
     
     def spawn_error(self):
-        error = Error(self.room, 100, 100)
-        #print(f"{error}, {self.room})")
+        error = Error(self.room, 500, 200)
+        print(f"{error}, {self.room})")
         self.room.add_room_object(error)
             
 
@@ -146,5 +147,3 @@ class Player(RoomObject):
         # clamp Y axis
         if self.y < 350:
             self.y = 350
-        elif self.y + getattr(self, 'height', 0) > Globals.SCREEN_HEIGHT:
-            self.y = Globals.SCREEN_HEIGHT - getattr(self, 'height', 0)
